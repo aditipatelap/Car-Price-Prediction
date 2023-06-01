@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Car Price Prediction</title>
+        <link rel="stylesheet" href="index.css" />
+    </head>
+
+    <body>
+        <p id="image"></p>
+        <div class="head">
+            <h1>Car Price Predictor</h1>
+            <h2>Predictive analysis</h2>
+        </div>
+        <div class="form">
+            <h3 style="text-align: center; color: red">
+                *Please fill all the fields in this form*
+            </h3>
+            <hr style="margin: 5px" />
+            <form action="/predict" method="POST">
+                <p>
+                    <label for="fueltype">Fuel Type:</label>
+                    <select id="fueltype" name="fueltype">
+                        <option value="gas">Gas</option>
+                        <option value="diesel">Diesel</option>
+                    </select>
+                    <br>
+                    <label for="aspiration">Aspiration:</label>
+                    <select id="aspiration" name="aspiration">
+                        <option value="std">Standard</option>
+                        <option value="turbo">Turbo</option>
+                    </select>
+                    <br>
+                    <label for="doornumber">Door Number:</label>
+                    <select id="doornumber" name="doornumber">
+                        <option value="two">Two</option>
+                        <option value="four">Four</option>
+                    </select>
+                    <br>
+                    <label for="carbody">Car Body:</label>
+                    <select id="carbody" name="carbody">
+                        <option value="convertible">Convertible</option>
+                        <option value="hardtop">Hard-Top</option>
+                        <option value="hatchback">Hatchback</option>
+                        <option value="sedan">Sedan</option>
+                        <option value="wagon">Wagon</option>
+                    </select>
+                    <br>
+                    <label for="drivewheel">Drive Wheel:</label>
+                    <select id="drivewheel" name="drivewheel">
+                        <option value="fwd">Front Wheel Drive (FWD)</option>
+                        <option value="rwd">Rear Wheel Drive (RWD)</option>
+                        <option value="4wd">Four Wheel Drive (4WD)</option>
+                    </select>
+                    <br>
+                    <label for="enginelocation">Engine Location:</label>
+                    <select id="enginelocation" name="enginelocation">
+                        <option value="front">Front</option>
+                        <option value="rear">Rear</option>
+                    </select>
+                    <br>
+                    <label for="wheelbase">Wheelbase:</label>
+                    <input type="number" id="wheelbase" name="wheelbase" step="0.01">
+                    <br>
+                    <label for="carlength">Car Length:</label>
+                    <input type="number" id="carlength" name="carlength" step="0.01">
+                    <br>
+                    <label for="carwidth">Car Width:</label>
+                    <input type="number" id="carwidth" name="carwidth" step="0.01">
+                    <br>
+                    <label for="carheight">Car Height:</label>
+                    <input type="number" id="carheight" name="carheight" step="0.01">
+                    <br>
+                    <label for="curbweight">Curb Weight:</label>
+                    <input type="number" id="curbweight" name="curbweight" step="1">
+                    <br>
+                    <label for="cylindernumber">Cylinder Number:</label>
+                    <select id="cylindernumber" name="cylindernumber">
+                        <option value="two">Two</option>
+                        <option value="three">Three</option>
+                        <option value="four">Four</option>
+                        <option value="five">Five</option>
+                        <option value="six">Six</option>
+                        <option value="eight">Eight</option>
+                        <option value="twelve">Twelve</option>
+                    </select>
+                    <br>
+                    <label for="enginesize">Engine Size:</label>
+                    <input type="number" id="enginesize" name="enginesize" step="1">
+                    <br>
+                    <label for="boreratio">Bore Ratio:</label>
+                    <input type="number" id="boreratio" name="boreratio" step="0.01">
+                    <br>
+                    <label for="stroke">Stroke:</label>
+                    <input type="number" id="stroke" name="stroke" step="0.01">
+                    <br>
+                    <label for="compressionratio">Compression Ratio:</label>
+                    <input type="number" id="compressionratio" name="compressionratio" step="0.01">
+                    <br>
+                    <label for="horsepower">Horsepower:</label>
+                    <input type="number" id="horsepower" name="horsepower" step="1">
+                    <br>
+                    <label for="peakrpm">Peak RPM:</label>
+                    <input type="number" id="peakrpm" name="peakrpm" step="1">
+                    <br>
+                    <label for="citympg">City MPG:</label>
+                    <input type="number" id="citympg" name="citympg" step="1">
+                    <br>
+                    <label for="highwaympg">Highway MPG:</label>
+                    <input type="number" id="highwaympg" name="highwaympg" step="1">
+                    <br>
+                </p>
+                <input type="submit" value="Predict">
+            </form>
+        </div>
+        
+        <div class="result">
+            <p style="height: 30px; padding: 2px">{{ price }}</p>
+          </div>
+        <style>
+            body {
+    background-color: black;
+    text-align: center;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    padding: 1px;
+    margin : 0px auto;
+    max-width:900px
+  }
+
+html {
+    background-color: #ffffff;
+    width: 100%;
+}
+label,select {
+    font-family: Verdana;
+    font-size: 15px;
+    margin: 5px;
+    color: rgb(0, 0, 0);
+}
+
+#image {
+    background-image: url("https://thinkingneuron.com/wp-content/uploads/2020/09/Car-price-prediction-case-study.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border: 2px solid black;
+    margin: 0px 0px 0px 0px;
+    width: 99.5%;
+    height: 200px;
+}
+
+div.head {
+    padding: 1px;
+    /* background-color:  rgb(28, 124, 92);; */
+    background-color: #4daea1;
+    border: 2px solid #31706c;
+    border-radius: 0px 0px 5px 5px;
+    height: 110px;
+}
+
+div.head {
+    padding: 1px;
+    /* background-color:  rgb(28, 124, 92);; */
+    background-color: #4daea1;
+    border: 2px solid #31706c;
+    border-radius: 0px 0px 5px 5px;
+    height: 110px;
+}
+
+.head h1 {
+    color: rgb(0, 0, 0);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    margin: 12px;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px black;
+}
+
+.head h2 {
+    color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px;
+    font-size: 20px;
+}
+
+.form {
+    margin: 10px 100px 10px 100px;
+    border: solid rgb(0, 0, 0);
+    border-radius: 4px;
+    font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
+      sans-serif;
+    font-size: 15px;
+    text-align: left;
+    background-color: white;
+}
+
+p {
+    text-align: left;
+    margin-left: 50px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
+    background-color: #4daea1;
+    color: white;
+}
+
+input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: #31706c;
+}
+.result {
+    background-color: rgb(0, 123, 255);
+    margin: 2px 100px;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
+}
+
+#box {
+    border-radius: 60px;
+    border-color: 45px;
+    border-style: solid;
+    font-family: cursive;
+    text-align: center;
+    background-color: rgb(168, 131, 61);
+    font-size: medium;
+    position: absolute;
+    width: 700px;
+    bottom: 9%;
+    height: 850px;
+    right: 30%;
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
+}
+
+.result {
+    background-color: rgb(0, 123, 255);
+    margin: 2px 100px;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
+  }
+        </style>
+    </body>
+</html>
